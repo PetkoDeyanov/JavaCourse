@@ -1,4 +1,4 @@
-package Task3;
+package Task3.LongestBlockInString;
 
 import java.util.Scanner;
 
