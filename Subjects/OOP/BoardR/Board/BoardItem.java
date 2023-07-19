@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class BoardItem {
+public abstract class BoardItem {
     protected String title;
     protected LocalDateTime dueDate;
     protected Status status;
@@ -61,56 +61,9 @@ public class BoardItem {
     }
 
 
-    public void revertStatus() {
-        String oldStat = this.status.toString();
+    public abstract void revertStatus();
 
-        for (int i = 0; i < 1; i++) {
-            if (this.status == Status.OPEN) break;
-            if (this.status == Status.TODO) {
-                status = Status.OPEN;
-                break;
-            }
-            if (this.status == Status.IN_PROGRESS) {
-                status = Status.TODO;
-                break;
-            }
-            if (this.status == Status.DONE) {
-                status = Status.IN_PROGRESS;
-                break;
-            }
-            if (this.status == Status.VERIFIED) {
-                status = Status.DONE;
-                break;
-            }
-        }
-        history.add(new EventLog(String.format("Status changed from %s to %s", oldStat, this.status.toString())));
-    }
-
-    public void advanceStatus() {
-        String oldStat = this.status.toString();
-        for (int i = 0; i < 1; i++) {
-
-
-            if (this.status == Status.OPEN) {
-                status = Status.TODO;
-                break;
-            }
-            if (this.status == Status.TODO) {
-                status = Status.IN_PROGRESS;
-                break;
-            }
-            if (this.status == Status.IN_PROGRESS) {
-                status = Status.DONE;
-                break;
-            }
-            if (this.status == Status.DONE) {
-                status = Status.VERIFIED;
-                break;
-            }
-        }
-        history.add(new EventLog(String.format("Status changed from %s to %s", oldStat, this.status.toString())));
-    }
-
+    public abstract void advanceStatus();
     public String viewInfo() {
         String format = String.format("'%s', [%s | %s]", this.title, this.status.toString(), (dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         return format;

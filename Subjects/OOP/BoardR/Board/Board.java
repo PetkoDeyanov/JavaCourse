@@ -39,7 +39,5 @@ public class Board {
         }
     }
 
-//    public void add(BoardItem item){
-//        this.items.add(item);
-//    }
+
 }

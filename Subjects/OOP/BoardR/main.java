@@ -1,8 +1,10 @@
 package BoardR;
 
+import BoardR.Board.Board;
 import BoardR.Board.BoardItem;
 import BoardR.Board.Issue;
 import BoardR.Board.Task;
+import BoardR.Loggers.ConsoleLogger;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +17,6 @@ public class main {
 
         System.out.println(task.viewInfo());
         System.out.println(issue.viewInfo());
-
     }
 
 }
