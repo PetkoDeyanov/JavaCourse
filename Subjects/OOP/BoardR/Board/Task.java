@@ -1,7 +1,10 @@
-package BoardR;
+package BoardR.Board;
+
+import BoardR.Loggers.EventLog;
 
 import java.time.LocalDateTime;
 
+import BoardR.Board.Enum.Status;
 public class Task extends BoardItem {
 
     private String assignee;
@@ -29,5 +32,12 @@ public class Task extends BoardItem {
     public String getAssignee() {
         return assignee;
 
+    }
+
+
+    @Override
+    public String viewInfo() {
+        String baseInfo = super.viewInfo();
+        return String.format("Task: %s, Assingnee: %s", baseInfo, this.getAssignee());
     }
 }

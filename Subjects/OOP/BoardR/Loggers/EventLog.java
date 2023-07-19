@@ -1,4 +1,4 @@
-package BoardR;
+package BoardR.Loggers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

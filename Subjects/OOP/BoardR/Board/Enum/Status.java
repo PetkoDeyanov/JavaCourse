@@ -1,5 +1,5 @@
-package BoardR;
+package BoardR.Board.Enum;
 
-enum Status {
+public enum Status {
     OPEN, TODO, IN_PROGRESS, DONE, VERIFIED;
 }

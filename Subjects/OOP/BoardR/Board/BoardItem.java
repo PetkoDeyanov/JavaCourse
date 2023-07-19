@@ -1,6 +1,8 @@
-package BoardR;
+package BoardR.Board;
 
-import java.time.LocalDate;
+import BoardR.Loggers.EventLog;
+import BoardR.Board.Enum.Status;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,15 +16,17 @@ public class BoardItem {
     public BoardItem(String title, LocalDateTime date) {
         setDate(date);
         setTitle(title);
-
+        this.status = Status.OPEN;
         history.add(new EventLog("Item created: " + viewInfo()));
     }
-   public BoardItem(String title, LocalDateTime date, Status status){
-       setDate(date);
-       setTitle(title);
-       this.status = status;
-       history.add(new EventLog("Item created: " + viewInfo()));
-   }
+
+    public BoardItem(String title, LocalDateTime date, Status status) {
+        setDate(date);
+        setTitle(title);
+        this.status = status;
+        history.add(new EventLog("Item created: " + viewInfo()));
+    }
+
     public void setDate(LocalDateTime newDate) {
         if (newDate.isBefore(LocalDateTime.now()))
             throw new IllegalArgumentException(" Please enter a valid date in future");
@@ -116,5 +120,15 @@ public class BoardItem {
         for (EventLog el : history) {
             System.out.println(el.viewInfo());
         }
+    }
+
+    public String getHistory() {
+        StringBuilder builder = new StringBuilder();
+
+        for (EventLog event : history) {
+            builder.append(event.viewInfo()).append(System.lineSeparator());
+        }
+
+        return builder.toString();
     }
 }
