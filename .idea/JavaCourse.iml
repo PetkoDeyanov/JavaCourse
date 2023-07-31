@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Subjects/CoreProgramming" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Subjects/OOP" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TestingStuffOut/TestingStuffOut.Branchless" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
