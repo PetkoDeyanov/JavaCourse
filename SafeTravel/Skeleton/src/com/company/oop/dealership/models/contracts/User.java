@@ -30,4 +30,6 @@ public interface User {
 
     boolean isAdmin();
 
+    String printUser();
+
 }

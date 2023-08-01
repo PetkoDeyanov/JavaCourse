@@ -27,6 +27,8 @@ public interface VehicleDealershipRepository {
 
     boolean hasLoggedInUser();
 
+    String showUsers();
+
     void login(User user);
 
     void logout();

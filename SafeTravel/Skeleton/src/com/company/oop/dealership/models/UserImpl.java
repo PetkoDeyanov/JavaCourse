@@ -138,6 +138,12 @@ public class UserImpl implements User {
 
     @Override
     public void addVehicle(Vehicle vehicle) {
+        if (isAdmin()) {
+            throw new IllegalArgumentException(ADMIN_CANNOT_ADD_VEHICLES);
+        }
+        if (userRole == UserRole.NORMAL && vehicles.size() == NORMAL_ROLE_VEHICLE_LIMIT) {
+            throw new IllegalArgumentException(NOT_AN_VIP_USER_VEHICLES_ADD);
+        }
         this.vehicles.add(vehicle);
     }
 
@@ -148,19 +154,28 @@ public class UserImpl implements User {
 
     @Override
     public void addComment(Comment commentToAdd, Vehicle vehicleToAddComment) {
-       int index = vehicles.indexOf(vehicleToAddComment);
-       vehicles.get(index).addComment(commentToAdd);
+        int index = vehicles.indexOf(vehicleToAddComment);
+        vehicles.get(index).addComment(commentToAdd);
     }
 
     @Override
     public void removeComment(Comment commentToRemove, Vehicle vehicleToRemoveComment) {
-        int index = vehicles.indexOf(vehicleToRemoveComment);
-        vehicles.get(index).removeComment(commentToRemove);
+        try {
+            int index = vehicles.indexOf(vehicleToRemoveComment);
+            vehicles.get(index).removeComment(commentToRemove);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Vehicle does not exist!");
+        }
     }
 
     @Override
     public String printVehicles() {
         return null;
+    }
+
+    public String printUser() {
+        return String.format("Username: %s, Fullname: %s %s, Role: %s",
+                getUsername(), getFirstName(), getLastName(), getRole().toString());
     }
 
     @Override

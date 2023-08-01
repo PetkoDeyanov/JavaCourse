@@ -92,4 +92,12 @@ public class VehicleDealershipRepositoryImpl implements VehicleDealershipReposit
     public Comment createComment(String content, String author) {
         return new CommentImpl(content, author);
     }
+
+    public String showUsers() {
+        StringBuilder result = new StringBuilder();
+        for (User user : getUsers()) {
+            result.append(user.printUser());
+        }
+        return result.toString();
+    }
 }

@@ -2,6 +2,7 @@ package com.company.oop.dealership.models;
 
 import com.company.oop.dealership.models.contracts.Motorcycle;
 import com.company.oop.dealership.models.enums.VehicleType;
+import com.company.oop.dealership.utils.ValidationHelpers;
 
 import static java.lang.String.format;
 
@@ -18,6 +19,13 @@ public class MotorcycleImpl extends VehicleCore implements Motorcycle {
 
     public MotorcycleImpl(String make, String model, double price, String category) {
         super(make, model, price);
+        setCategory(category);
+    }
+
+    private void setCategory(String category) {
+        ValidationHelpers.validateStringRange(category, CATEGORY_LEN_MIN, CATEGORY_LEN_MAX, CATEGORY_LEN_ERR);
+
+        this.category = category;
     }
 
     @Override
