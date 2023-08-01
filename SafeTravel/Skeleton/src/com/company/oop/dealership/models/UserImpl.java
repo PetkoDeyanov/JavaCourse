@@ -1,8 +1,18 @@
 package com.company.oop.dealership.models;
 
-import static java.lang.String.format;
+import com.company.oop.dealership.models.contracts.Comment;
+import com.company.oop.dealership.models.contracts.User;
+import com.company.oop.dealership.models.contracts.Vehicle;
+import com.company.oop.dealership.models.enums.UserRole;
+import com.company.oop.dealership.utils.ValidationHelpers;
 
-public class UserImpl {
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
+public class UserImpl implements User {
 
     public static final int USERNAME_LEN_MIN = 2;
     public static final int USERNAME_LEN_MAX = 20;
@@ -45,7 +55,118 @@ public class UserImpl {
     private final static String USER_HEADER = "--USER %s--";
     private static final int NORMAL_ROLE_VEHICLE_LIMIT = 5;
 
+
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private UserRole userRole;
+    private List<Vehicle> vehicles;
+    private boolean isLoggedIn;
+
+
+    public UserImpl(String username, String firstName, String lastName, String password, UserRole userRole) {
+        setUsername(username);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPassword(password);
+        setUserRole(userRole);
+        vehicles = new ArrayList<>();
+    }
+
+    private void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    private void setPassword(String password) {
+        ValidationHelpers.validateStringRange(password, PASSWORD_LEN_MIN, PASSWORD_LEN_MAX, PASSWORD_LEN_ERR);
+        ValidationHelpers.validatePattern(password, PASSWORD_REGEX_PATTERN, PASSWORD_PATTERN_ERR);
+
+        this.password = password;
+    }
+
+    private void setLastName(String lastName) {
+        ValidationHelpers.validateStringRange(lastName, LASTNAME_LEN_MIN, LASTNAME_LEN_MAX, LASTNAME_LEN_ERR);
+
+        this.lastName = lastName;
+    }
+
+    private void setFirstName(String firstName) {
+        ValidationHelpers.validateStringRange(firstName, FIRSTNAME_LEN_MIN, FIRSTNAME_LEN_MAX, FIRSTNAME_LEN_ERR);
+
+        this.firstName = firstName;
+    }
+
+    private void setUsername(String username) {
+        ValidationHelpers.validateStringRange(username, USERNAME_LEN_MIN, USERNAME_LEN_MAX, USERNAME_LEN_ERR);
+        ValidationHelpers.validatePattern(username, USERNAME_REGEX_PATTERN, USERNAME_PATTERN_ERR);
+
+        this.username = username;
+    }
     //TODO
+
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public UserRole getRole() {
+        return this.userRole;
+    }
+
+    @Override
+    public List<Vehicle> getVehicles() {
+        return new ArrayList<>(vehicles);
+    }
+
+    @Override
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicles.add(vehicle);
+    }
+
+    @Override
+    public void removeVehicle(Vehicle vehicle) {
+        this.vehicles.remove(vehicle);
+    }
+
+    @Override
+    public void addComment(Comment commentToAdd, Vehicle vehicleToAddComment) {
+       int index = vehicles.indexOf(vehicleToAddComment);
+       vehicles.get(index).addComment(commentToAdd);
+    }
+
+    @Override
+    public void removeComment(Comment commentToRemove, Vehicle vehicleToRemoveComment) {
+        int index = vehicles.indexOf(vehicleToRemoveComment);
+        vehicles.get(index).removeComment(commentToRemove);
+    }
+
+    @Override
+    public String printVehicles() {
+        return null;
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return userRole == UserRole.ADMIN;
+    }
 
     @Override
     public boolean equals(Object o) {
